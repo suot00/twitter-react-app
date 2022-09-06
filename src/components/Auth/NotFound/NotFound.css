@@ -1,0 +1,15 @@
+.NotFound {
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 10em;
+}
+.NotFound > button {
+  background-color: cyan;
+  border: none;
+  outline: none;
+  margin: 20px;
+  padding: 10px;
+}

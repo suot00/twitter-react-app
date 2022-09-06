@@ -1,0 +1,9 @@
+.tweetBoxOption {
+  width: 30px;
+  height: 30px;
+  padding: 5px;
+}
+.tweetBoxOption:hover {
+  background-color: aliceblue;
+  border-radius: 50%;
+}
