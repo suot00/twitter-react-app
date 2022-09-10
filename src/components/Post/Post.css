@@ -1,39 +1,50 @@
 .post {
-  display: flex;
-  align-items: flex-start;
   border-bottom: 1px solid var(--twitter-background);
   padding-bottom: 10px;
 }
 .post__body {
-  flex: 1;
   padding: 10px;
 }
-.post__avatar {
-  padding: 20px;
-}
-.post__body > img {
-  border-radius: 20px;
-  width: 100%;
-}
-.post__footer {
+.post__header {
+  padding: 10px;
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+}
+.post__avatar {
+  display: flex;
+}
+/* .post__body > img {
+  border-radius: 20px;
+  width: 100%;
+} */
+.post__footer {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 2em;
 }
 .post__badge {
   font-size: 14px !important;
   color: var(--twitter-color);
 }
-.post__headerText > h3 {
+.post__headerText {
+  margin: 5px;
   font-size: 15px;
-  margin-bottom: 5px;
 }
+.btn-close {
+  color: gray;
+}
+
 .post__headerSpecial {
   font-weight: 600;
   font-size: 12px;
   color: gray;
 }
 .post__headerDesc {
-  margin-bottom: 10px;
   font-size: 15px;
+  margin-left: 4em;
+  color: gray;
+}
+.btn {
+  background-color: white;
+  border: none;
 }

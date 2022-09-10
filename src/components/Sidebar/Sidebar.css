@@ -23,20 +23,22 @@
   width: 90% !important;
 }
 .sidebar__account {
-  display: flex;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  margin: 10px;
+  display: flex !important;
+  justify-content: space-between !important;
+  border: none !important;
+  color: black !important;
+  font-weight: 900 !important;
+  text-transform: inherit !important;
+  border-radius: 30px !important;
+  height: 50px !important ;
+  margin-top: 20px !important;
+  width: 90% !important;
 }
-.sidebar__account button {
-  cursor: pointer;
-  margin-left: 10px;
-  background-color: red;
-  padding: 5px;
-  border-radius: 5px;
-  border: none;
+.sidebar__account p {
+  color: gray !important;
+  font-size: 12px;
 }
+
 .sidebar__account > h3 {
   font-size: 30px;
 }

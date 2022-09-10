@@ -1,34 +1,38 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo, memo, useRef } from "react";
 import "./TweetBox.css";
-import { Avatar, Button } from "@material-ui/core";
-import ImageOutlinedIcon from "@material-ui/icons/ImageOutlined";
-import PollOutlinedIcon from "@material-ui/icons/PollOutlined";
-import GifOutlinedIcon from "@material-ui/icons/GifOutlined";
-import SentimentSatisfiedOutlinedIcon from "@material-ui/icons/SentimentSatisfiedOutlined";
-import RoomOutlinedIcon from "@material-ui/icons/RoomOutlined";
-import ScheduleIcon from "@material-ui/icons/Schedule";
+import { Avatar, Button } from "@mui/material";
+import ImageIcon from "@mui/icons-material/Image";
+import PollOutlinedIcon from "@mui/icons-material/PollOutlined";
+import GifBoxOutlinedIcon from "@mui/icons-material/GifBoxOutlined";
+import SentimentSatisfiedAltOutlinedIcon from "@mui/icons-material/SentimentSatisfiedAltOutlined";
+import RoomIcon from "@mui/icons-material/Room";
+import ScheduleOutlinedIcon from "@mui/icons-material/ScheduleOutlined";
 import TweetBoxOption from "./TweetBoxOption";
 import Post from "../Post/Post";
 import { v4 as uuidv4 } from "uuid";
+const PostMemo = React.memo(Post);
 const TweetBox = () => {
   const getAuhtorArr = localStorage.getItem("user_login");
   const userData = JSON.parse(getAuhtorArr);
-
+  // const nameLikePost = userData[0].name;
   const [inputPost, setInputPost] = useState({
     id: uuidv4(),
     author: userData[0].name,
     textTweet: "",
   });
+
+  const inputRef = useRef();
+
   const [dataPosts, setDataPosts] = useState(() => {
     const getPostArr = JSON.parse(localStorage.getItem("posts"));
     return getPostArr ?? [];
   });
 
-  const charLimit = 20;
+  // const charLimit = 20;
 
   const getTweet = (e) => {
     const { value, name } = e.target;
-
+    console.log("getTweet");
     setInputPost(() => {
       return {
         ...inputPost,
@@ -37,14 +41,34 @@ const TweetBox = () => {
     });
   };
   const addTweet = () => {
+    console.log("addTweet");
     setDataPosts((prev) => {
       const newPosts = [...prev, inputPost];
       const jsonPosts = JSON.stringify(newPosts);
+
       localStorage.setItem("posts", jsonPosts);
+      // const reverseArr = newPosts.reverse();
+      // console.log(newPosts);
+      // console.log(reverseArr);
       return newPosts;
     });
-
-    setInputPost("");
+    inputRef.current.focus();
+    // setInputPost((inputPost) => ({
+    //   ...inputPost,
+    // }));
+    let updatedValue = {};
+    updatedValue = { id: uuidv4(), author: userData[0].name, textTweet: "" };
+    setInputPost((inputPost) => ({
+      ...inputPost,
+      ...updatedValue,
+    }));
+  };
+  const removeTweet = (id) => {
+    const newArrs = [...dataPosts];
+    const newArrData = newArrs.filter((newArr) => newArr.id !== id);
+    const jsonPosts = JSON.stringify(newArrData);
+    localStorage.setItem("posts", jsonPosts);
+    setDataPosts(newArrData);
   };
 
   return (
@@ -55,6 +79,7 @@ const TweetBox = () => {
             <Avatar src="https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png" />
 
             <input
+              ref={inputRef}
               type="text"
               placeholder="What's happening"
               name="textTweet"
@@ -62,12 +87,12 @@ const TweetBox = () => {
             />
           </div>
           <div className="tweetBoxSocial">
-            <TweetBoxOption Icon={ImageOutlinedIcon} />
-            <TweetBoxOption Icon={GifOutlinedIcon} />
+            <TweetBoxOption Icon={ImageIcon} />
+            <TweetBoxOption Icon={GifBoxOutlinedIcon} />
             <TweetBoxOption Icon={PollOutlinedIcon} />
-            <TweetBoxOption Icon={SentimentSatisfiedOutlinedIcon} />
-            <TweetBoxOption Icon={ScheduleIcon} />
-            <TweetBoxOption Icon={RoomOutlinedIcon} />
+            <TweetBoxOption Icon={SentimentSatisfiedAltOutlinedIcon} />
+            <TweetBoxOption Icon={ScheduleOutlinedIcon} />
+            <TweetBoxOption Icon={RoomIcon} />
           </div>
           {/* <Button> Limit: {charLimit - inputPost.textTweet.length}</Button> */}
           <Button className="tweetBox__tweetButton" onClick={addTweet}>
@@ -77,7 +102,7 @@ const TweetBox = () => {
       </div>
 
       {dataPosts.map((dataPost, index) => (
-        <Post key={index} data={dataPost} />
+        <PostMemo key={index} data={dataPost} remove={removeTweet} />
       ))}
     </>
   );

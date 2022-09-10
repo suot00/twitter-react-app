@@ -1,21 +1,21 @@
 import React, { useEffect, useState } from "react";
-import TwitterIcon from "@material-ui/icons/Twitter";
-import HomeIcon from "@material-ui/icons/Home";
-import SearchIcon from "@material-ui/icons/Search";
-import NotificationsNoneIcon from "@material-ui/icons/NotificationsNone";
-import MailOutlineIcon from "@material-ui/icons/MailOutline";
-import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
-import ListAltIcon from "@material-ui/icons/ListAlt";
-import PermIdentityIcon from "@material-ui/icons/PermIdentity";
-import MoreHorizIcon from "@material-ui/icons/MoreHoriz";
+import { Avatar, Button } from "@mui/material";
+import TwitterIcon from "@mui/icons-material/Twitter";
+import HomeIcon from "@mui/icons-material/Home";
+import Grid3x3Icon from "@mui/icons-material/Grid3x3";
+import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import ListAltIcon from "@mui/icons-material/ListAlt";
+import PermIdentityIcon from "@mui/icons-material/PermIdentity";
+import MoreHorizIcon from "@mui/icons-material/MoreHoriz";
 import SidebarOption from "../SidebarOption/SidebarOption";
+
 import { useNavigate } from "react-router-dom";
 import "./Sidebar.css";
-import { Button } from "@material-ui/core";
 
 const Sidebar = () => {
   const [loginData, setLoginData] = useState([]);
-  console.log(loginData);
   const userInfo = () => {
     const getUser = localStorage.getItem("user_login");
     if (getUser && getUser.length) {
@@ -38,7 +38,7 @@ const Sidebar = () => {
     <div className="sidebar">
       <TwitterIcon className="sidebar__twitterIcon" />
       <SidebarOption active Icon={HomeIcon} text="Home" />
-      <SidebarOption Icon={SearchIcon} text="Explore" />
+      <SidebarOption Icon={Grid3x3Icon} text="Explore" />
       <SidebarOption Icon={NotificationsNoneIcon} text="Notifications" />
       <SidebarOption Icon={MailOutlineIcon} text="Message" />
       <SidebarOption Icon={BookmarkBorderIcon} text="Bookmarks" />
@@ -49,10 +49,14 @@ const Sidebar = () => {
         Tweet
       </Button>
 
-      <div className="sidebar__account">
-        {loginData.length === 0 ? "Error" : <h3>{loginData[0].name}</h3>}
-        <Button onClick={handleClick}>Logout</Button>
-      </div>
+      <Button className="sidebar__account" style={{ display: "flex" }}>
+        <Avatar />
+        <div>
+          {loginData.length === 0 ? "Error" : <h3>{loginData[0].name}</h3>}
+          <p>@username</p>
+        </div>
+        <span onClick={handleClick}>Logout</span>
+      </Button>
     </div>
   );
 };

@@ -1,12 +1,12 @@
 import React from "react";
 import "./Widget.css";
 
-import { Search } from "@material-ui/icons";
+import SearchIcon from "@mui/icons-material/Search";
 const Widget = () => {
   return (
     <div className="widget">
       <div className="widget__input">
-        <Search className="widget__SearchIcon" />
+        <SearchIcon className="widget__SearchIcon" />
         <input placeholder="Search Twitter" type="text" />
       </div>
       <div className="widget__widgetContainer">
