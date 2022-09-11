@@ -34,10 +34,17 @@ function Register() {
     } else {
       alert("data added successfully");
       let registerOldData = JSON.parse(localStorage.getItem("user"));
-      localStorage.setItem(
-        "user",
-        JSON.stringify([...registerOldData, inputValue])
-      );
+
+      if (registerOldData <= 0) {
+        localStorage.setItem("user", JSON.stringify([inputValue]));
+        // console.log(registerOldData.length);
+      } else {
+        localStorage.setItem(
+          "user",
+          JSON.stringify([...registerOldData, inputValue])
+        );
+      }
+
       navigate("/");
     }
   };
