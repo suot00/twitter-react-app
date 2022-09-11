@@ -53,9 +53,7 @@ const TweetBox = () => {
       return newPosts;
     });
     inputRef.current.focus();
-    // setInputPost((inputPost) => ({
-    //   ...inputPost,
-    // }));
+    // setInputPost('');
     let updatedValue = {};
     updatedValue = { id: uuidv4(), author: userData[0].name, textTweet: "" };
     setInputPost((inputPost) => ({
